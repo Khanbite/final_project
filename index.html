@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css"/>
+    <base href="/">
+</head>
+<body>
+    <form id="taskForm">
+        <input type="text" id="taskName" placeholder="Task name"/>
+        <select id="priority">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+         </select>
+    
+        <input type="checkbox" id="important" type="radio" placeholder="Important"/>               
+        <span>Important</span>
+    
+        <button type="submit" id="submitBtn">Add Task</button>
+        <script src="script.js"></script>
+    </form>
+    
+    <div id="taskManager">
+
+    </div>
+</body>
+</html>
