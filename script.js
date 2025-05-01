@@ -1,109 +1,77 @@
-// document.addEventListener("DOMContentLoaded", init);
-// const outputDiv = document.getElementById("eachTask")
+var tasks = [];
 
-// let tasks = [];
-
-// const form = document.getElementById("taskForm")
-// const taskContainer = document.getElementById("taskManager")
-
-// function init() {
-//     const submitButton = document.getElementById("submitBtn");
-//     submitButton.addEventListener("click", createObject);
-// }
-
-// function createObject() {
-//     const tasks = buildTask();
-    
-//     console.log("JavaScript Object:");
-//     console.log(tasks);
-
-//     console.log("JSON Format:");
-//     console.log(JSON.stringify(tasks, null, 4));
-// }
-
-// function buildTask() {
-//     let priorityVal = document.getElementById("priority");
-//     let importance = document.getElementById("important");
-
-//     return {
-//         taskName: document.getElementById("taskName").value,
-//         priority: document.getElementById("priority").value,
-//         isImportant: document.getElementById("important").value,
-//         // section: document.getElementById("section").value,
-//         // role: document.getElementById("role").value
-//     };
-// }
-
-// // const taskLine = {
-// //     taskName: document.getElementById("taskName").value,
-// //     priority: document.getElementById("priority").value,
-// //   }
-  
-// //   function displayTasks(taskLine) {
-// //     return `${taskLine.name}         Priority ${taskLine.priority}`
-// //   }
-  
-// //   function outIt() {
-// //     outputDiv.innerHTML = ` ${displayTasks(taskLine)}`;
-// //   }
-
-let allTasks = [];
-
-let form = document.getElementById("taskForm");
-let taskContainer = document.getElementById("taskManager");
+var form = document.getElementById("taskForm");
+var taskContainer = document.getElementById("taskManager");
 
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  let taskName = document.getElementById("taskName").value.trim();
-  let priority = document.getElementById("priority").value;
-  let isImportant = document.getElementById("important");
+  var taskName = document.getElementById("taskName").value.trim();
+  var priority = document.getElementById("priority").value;
+  var isImportant = document.getElementById("isImportant").checked;
   if (taskName === "") {
     window.alert("You must enter a valid task!");
     return;
   }
-  let task = {
-    id: Date(),
+  var task = {
+    id: Date.now(),
     name: taskName,
     priority: priority,
     isImportant: isImportant,
-    isCompleted: true,
+    isCompleted: false,
     date:new Date()
   }
-  allTasks.push(task);
+  tasks.push(task);
   displayTasks();
-  console.log(JSON.stringify(allTasks, null, 2));
+  
+  console.log("List of Tasks: ")
+  console.log(JSON.stringify(tasks, null, 1));
+
+  form.reset();
 })
 
 function displayTasks() {
-  taskContainer.innerHTML="";
-  for (var i=0; i<allTasks.length; i++) {
-    var task = allTasks[i]
+  taskContainer.innerHTML = "";
+  for (var i = 0; i < tasks.length; i++) {
+    var task = tasks[i]
     
     var taskDiv = document.createElement("div");
     if (task.isImportant) {
       taskDiv.style.backgroundColor = "red"
     }
     if (task.isCompleted) {
-      taskDiv.style.textDecoration = "strike-through";
+      taskDiv.style.textDecoration = "line-through";
     }
-    var content = task.name + task.priority + task.date;
-    content += "<button onclick='markDone(" + task.id +")'>";
-
+    var content = task.name + "<br>" + "Priority: " + task.priority + "<br>";
+    content += task.date;
+    content += "<br>" + "<button onclick='markDone(" + task.id + ")'>" + (task.isCompleted ? "Mark Incomplete" : "Mark Complete") + "</button>"
+    content += "<button onclick='deleteTask(" + task.id +")'> Delete </button>";
     taskDiv.innerHTML = content;
-    taskContainer.appendChild(taskDiv);
+    taskContainer.appendChild(taskDiv)
   }
 }
 
-function deleteTasks(id) {
-  for (var i=0; i<allTasks.length; i++) {
-    if (allTasks[i].id === id) {
-      allTasks.splice(i, 1);
+function deleteTask(id) {
+  for (var i=0; i<tasks.length; i++) {
+    if(tasks[i].id === id) {
+      tasks.splice(i, 1);
       break;
     }
   }
 
   displayTasks();
-  console.log(JSON.stringify(allTasks, null, 2));
+  console.log(JSON.stringify(tasks, null, 1));
+}
+
+function markDone(id) {
+  for(var i=0; i<tasks.length; i++) {
+    if(tasks[i].id === id) {
+      tasks[i].isCompleted = !tasks[i].isCompleted;
+      break;
+    }
+  }
+
+  displayTasks();
+  console.log(JSON.stringify(tasks, null, 1));
 }
 

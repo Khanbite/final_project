@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Task Manager</title>
-    <link rel="stylesheet" href="style.css"/>
     <base href="/">
+    <link rel="stylesheet" href="style.css"/>
+
 </head>
 <body>
+    <h1> Task Manager </h1>
     <form id="taskForm">
         <input type="text" id="taskName" placeholder="Task name"/>
         <select id="priority">
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
          </select>
+        <label>
+            <input type="checkbox" value="important" id="isImportant"/> Important
+        </label>             
     
-        <input type="checkbox" id="important" type="radio" placeholder="Important"/>               
-        <span>Important</span>
-    
-        <button type="submit" id="submitBtn">Add Task</button>
-        <script src="script.js"></script>
+        <button type="submit" id="submitButton">Add Task</button>
+
     </form>
     
     <div id="taskManager">
 
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

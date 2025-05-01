@@ -1,0 +1,19 @@
+#taskManager {
+    margin: 20px;
+    text-align: left;
+}
+
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: aliceblue;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: azure;
+}
+
